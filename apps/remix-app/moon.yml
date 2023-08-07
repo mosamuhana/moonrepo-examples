@@ -1,0 +1,30 @@
+type: 'application'
+
+fileGroups:
+  app:
+    - 'remix.env.d.ts'
+    - 'remix.config.*'
+  sources:
+    - 'app/**/*'
+    - 'public/**/*'
+    - 'types/**/*'
+
+tasks:
+  build:
+    command: 'remix build'
+    inputs:
+      - '@group(app)'
+      - '@group(sources)'
+    outputs:
+      - '.cache'
+      - 'build'
+
+  dev:
+    command: 'remix dev'
+    local: true
+
+  start:
+    command: 'remix-serve ./build'
+    deps:
+      - 'build'
+    local: true
